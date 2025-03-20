@@ -27,7 +27,7 @@ correct_answers_index = [1, 2, 0, 3, 1]
 #inicio puntaje en 0
 puntaje = float(0)
 # no se accede a las preguntas con indices
-questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
+questions_to_ask = random.sample(list(zip(questions, answers, correct_answers_index)), k=3)
 # El usuario deberá contestar 3 preguntas
 for question, answers, correct_one in questions_to_ask:
 

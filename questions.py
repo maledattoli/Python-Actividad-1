@@ -26,17 +26,15 @@ correct_answers_index = [1, 2, 0, 3, 1]
 
 #inicio puntaje en 0
 puntaje = float(0)
-
+# no se accede a las preguntas con indices
+questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
 # El usuario deberá contestar 3 preguntas
-for _ in range(3):
-    # Se selecciona una pregunta aleatoria
-    question_index = random.randint(0, len(questions) - 1)
+for question, answers, correct_one in questions_to_ask:
 
     # Se muestra la pregunta y las respuestas posibles
-    print(questions[question_index])
-    for i, answer in enumerate(answers[question_index]):
+    print(question)
+    for i, answer in enumerate(answers):
         print(f"{i + 1}. {answer}")
-
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
         user_answer = input("Respuesta: ")
@@ -47,11 +45,11 @@ for _ in range(3):
         else:
             user_answer = int(user_answer) - 1
             # Se verifica si la respuesta no es alguna de las respuestas posibles
-            if user_answer < 0 or user_answer >= len(answers) - 1:
+            if user_answer < 0 or user_answer >= len(answers):
                 print("Respuesta no válida")
                 sys.exit(1)
             # Se verifica si la respuesta es correcta
-            elif user_answer == correct_answers_index[question_index]:
+            elif user_answer == correct_one:
                 print("¡Correcto!")
                 #el jugador acertó se le suma su puntaje
                 puntaje += 1
@@ -60,7 +58,7 @@ for _ in range(3):
         # Si el usuario no responde correctamente después de 2 intentos,
         # se muestra la respuesta correcta
         print("Incorrecto. La respuesta correcta es:")
-        print(answers[question_index][correct_answers_index[question_index]])
+        print(answers[correct_one])
         # segundo intento fallido por lo tanto resto puntaje
         puntaje -= 0.5
 
